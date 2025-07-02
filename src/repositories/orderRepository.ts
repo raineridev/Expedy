@@ -24,7 +24,7 @@ export async function destory(id: number) {
 }
 
 export async function update(id: number, data: OrderType) {
-    const order = await orderModel.findOneAndUpdate({ id: id }, data);
+    const order = await orderModel.findOneAndUpdate({ id: id }, data,  { new: true });
     if (!order) {
         throw new Error('Order not found');
     }
@@ -49,7 +49,6 @@ export async function getOrderBySearch(query: OrderSearchType) {
     if (key === 'status') {
         const { tag } = orderFilters[key];
         filters[tag] = query[key];
-        console.log(filters.tag);
     }
     if (key == 'pointSale') {
         const { tag} = orderFilters[key];
