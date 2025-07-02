@@ -25,4 +25,16 @@ export async function updatePassword (id: number, password: string) {
     console.error('Error updating password:', error);
     throw new Error('Failed to update password: ' + error);
   }
-} 
+}
+
+export async function getUserByUsername (username: string) {
+  try {
+    const user = await userModel.findOne({ username });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  } catch (error) {   
+    throw new Error('Failed to fetch user: ' + error);
+  }
+}
