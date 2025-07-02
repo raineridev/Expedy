@@ -1,5 +1,5 @@
-const { Schema } = require('mongoose');
-const { connection } = require('../db');
+import { Schema } from  'mongoose';
+import  connection from '../db';
 
 const orderShema = new Schema({
     id: {

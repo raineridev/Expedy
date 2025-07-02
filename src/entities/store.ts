@@ -1,10 +1,11 @@
-const { Schema } = require('mongoose');
-const { connection } = require('../db');
+import { Schema } from 'mongoose';
+import connection from '../db';
+import { id } from 'zod/dist/types/v4/locales';
 
 const storeSchema = new Schema({
     id: {
         type: Number,
-        required: true,
+        unique: true,
     },
     cnpj: {
         type: String,
@@ -16,4 +17,11 @@ const storeSchema = new Schema({
     }
 }, );
 
-export default connection.model('Store', storeSchema);
+storeSchema.pre('save', async function(next) {
+  if (this.isNew) {
+    const lastUser = await storeModel.findOne().sort({ id: -1 });
+    this.id = lastUser ? lastUser.id + 1 : 1;
+  }
+  next();
+});
+export const storeModel = connection.model('Store', storeSchema);
