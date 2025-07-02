@@ -14,7 +14,6 @@ A modern Express.js REST API built with TypeScript, featuring user management, s
 - [Database Models](#database-models)
 - [Authentication](#authentication)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## ✨ Features
 
