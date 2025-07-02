@@ -18,10 +18,14 @@
   },
   "homepage": "https://github.com/raineridev/ProjectExpedy#readme",
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.1",
-    "nodemon": "^3.1.10"
+    "mongoose-sequence": "^6.0.1",
+    "nodemon": "^3.1.10",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
