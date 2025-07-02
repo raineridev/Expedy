@@ -4,16 +4,16 @@ A modern Express.js REST API built with TypeScript, featuring user management, s
 
 ## 📋 Table of Contents
 
-- [Features](-#features)
-- [Tech Stack](-#tech-stack)
-- [Project Structure](-#project-structure)
-- [Installation](-#installation)
-- [Environment Variables](-#environment-variables)
-- [Usage](-#usage)
-- [API Endpoints](-#api-endpoints)
-- [Database Models](-#database-models)
-- [Authentication](-#authentication)
-- [Contributing](-#contributing)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [Environment Variables](#-environment-variables)
+- [Usage](#-usage)
+- [API Endpoints](#-api-endpoints)
+- [Database Models](#-database-models)
+- [Authentication](#-authentication)
+- [Contributing](#-contributing)
 
 ## ✨ Features
 
