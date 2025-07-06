@@ -1,11 +1,18 @@
 import {store, getOrderById, destory, update, getOrderBySearch} from '../repositories/orderRepository';
 import { OrderSearchType } from '../types/orderSearchType';
 import { OrderType } from '../types/orderType';
+import { fetchUserById } from './userService';
 
-export async function createOrder(data: OrderType) {
+
+export async function createOrder(data: OrderType, userId: number) {
+    console.log('Creating order with data:', data);
+    const userData = await fetchUserById(userId); 
+    if(userData.store === undefined) {
+        throw new Error('User does not have a store associated');
+    }
+    data.store = userData.store;
     return await store(data);
 }
-
 export async function getOrder(id: number) {
     return await getOrderById(id);
 }
