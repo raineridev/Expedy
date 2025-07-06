@@ -1,6 +1,6 @@
 export type OrderType = {
-    id: number;
-    store: number;
+    id?: number;
+    store?: number;
     status: string;
     orderId: string;
     dateOfSale: Date;

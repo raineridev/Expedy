@@ -1,5 +1,5 @@
 export interface UserType {
-    store: number;
+    store?: number;
     id: number;
     username: string;
     password: string;
