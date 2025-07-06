@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import auth from './auth';
+import authRouter from './auth';
+import { auth } from "../middlewares/auth";
 import userRouter from './users';
 import orderRouter from './order';
 import storeRouter from './store';
@@ -7,8 +8,8 @@ import storeRouter from './store';
 const router = Router();
 
 router.use('/users', userRouter);
-router.use('/store', storeRouter);
-router.use('/order', orderRouter);
-router.use('/auth', auth);
+router.use('/store', auth, storeRouter);
+router.use('/order', auth, orderRouter);
+router.use('/auth', authRouter);
 
 export default router;
