@@ -1,5 +1,5 @@
 import { PasswordType } from "../controllers/validate/userUpdateValidate";
-import { store, updatePassword as updatePasswordUser, getUserByUsername} from "../repositories/userRepository";
+import { store, updatePassword as updatePasswordUser, getUserByUsername, getUserById, updateUser as updateUserRepository} from "../repositories/userRepository";
 import { UserType } from "../types/userType";
 
 
@@ -14,5 +14,13 @@ export async function updatePassword(data: PasswordType) {
 }
 
 export async function getUserUsername(username: string) {
-        return await getUserByUsername(username);
+        return (await getUserByUsername(username)).toObject();
+}
+
+export async function fetchUserById(id: number) { 
+        return (await getUserById(id)).toObject();
+}
+
+export async function updateUser(id: number, data: Object) {
+        return await updateUserRepository(id, data);
 }
