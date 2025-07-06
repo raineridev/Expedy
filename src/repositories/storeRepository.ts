@@ -5,7 +5,7 @@ export async function store(data: StoreType) {
     return await storeModel.create(data);
 }
 
-export async function getStoreById(id: Number)
+export async function getStoreById(id: number)
  {
     const store = await storeModel.findOne({id: id});
     if (!store) {
@@ -14,7 +14,7 @@ export async function getStoreById(id: Number)
     return store;
 }
 
-export async function deleteById(id: Number) {
+export async function deleteById(id: number) {
     const store = await storeModel.findOneAndDelete({id: id});
     if (!store) {
         throw new Error('Store not found');
@@ -22,7 +22,7 @@ export async function deleteById(id: Number) {
     return store;
 }
 
-export async function update(id: Number, data: StoreType) {
+export async function update(id: number, data: StoreType) {
     const store = await storeModel.findOneAndUpdate({id: id}, data);
     if (!store) {
         throw new Error('Store not found');
