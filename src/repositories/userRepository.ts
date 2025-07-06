@@ -38,3 +38,20 @@ export async function getUserByUsername (username: string) {
     throw new Error('Failed to fetch user: ' + error);
   }
 }
+
+export async function getUserById(id: number)
+ {
+    const store = await userModel.findOne({id: id});
+    if (!store) {
+        throw new Error('User not found');
+    }
+    return store;
+}
+
+export async function updateUser(id: number, data: Object) {
+    const user = await userModel.findOneAndUpdate({id: id}, data, { new: true }); 
+    if (!user) {
+        throw new Error('User not found');
+    }
+    return user;
+}
