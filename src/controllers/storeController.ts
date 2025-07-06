@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 export async function store(req: Request, res: Response) {
     try {
         const data = req.body;
-        const store = await createStore(data);
+        const store = await createStore(data, parseInt(req.headers['x-user-id'] as string));
         res.status(201).json(store);
     } catch (error) {
         res.status(500).json({ error: 'Error creating store' });
