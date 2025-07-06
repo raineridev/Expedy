@@ -9,7 +9,8 @@ const storeSchema = new Schema({
     },
     cnpj: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
     name: {
         type: String,

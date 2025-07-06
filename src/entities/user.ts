@@ -7,12 +7,12 @@ import connection from '../db';
 const userSchema = new Schema<UserType>({
   store: {
     type: Number,
-    required: true,
   },
   id: { type: Number },
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,

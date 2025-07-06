@@ -1,10 +1,10 @@
 import { Schema } from  'mongoose';
 import  connection from '../db';
 
-const orderShema = new Schema({
+const orderSchema = new Schema({
     id: {
         type: Number,
-        required: true,
+        unique: true,
     },
     store: {
         type: Number,
@@ -118,4 +118,12 @@ const orderShema = new Schema({
     timestamps: true,
 });
 
-export default connection.model('Order', orderShema);
+orderSchema.pre('save', async function(next) {
+  if (this.isNew) {
+    const lastUser = await orderModel.findOne().sort({ id: -1 });
+    this.id = lastUser ? lastUser.id + 1 : 1;
+  }
+  next();
+});
+
+export const orderModel = connection.model('Order', orderSchema);
