@@ -1,4 +1,4 @@
-import orderModel from '../entities/order';
+import { orderModel } from '../entities/order';
 import { OrderSearchType } from '../types/orderSearchType';
 import { OrderType } from '../types/orderType';
 
