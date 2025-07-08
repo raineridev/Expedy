@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from "express";
-import { RefreshBodyType } from '../types/refreshBodyType';
-import { UserType } from '../types/userType';
+import { RefreshBodyType } from '../types/refresh-body.types';
+import { UserType } from '../types/user.types';
 
 export function auth(req: Request, res: Response, next: NextFunction) {
     const authorizationHeader = req.headers['authorization'];

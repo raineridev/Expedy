@@ -1,4 +1,4 @@
-import { setDateFormatToData } from "../../utils/DateFormat";
+import { setDateFormatToData } from "../../utils/date-format.util";
 
 const ExcelJS = require('exceljs');
 const path = require('path');

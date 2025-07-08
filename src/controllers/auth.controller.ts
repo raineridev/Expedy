@@ -1,4 +1,4 @@
-import { authenticateUser } from '../services/authService';
+import { authenticateUser } from '../services/auth.service';
 import { Request, Response } from "express";
 
 export async function create(req: Request, res: Response) {

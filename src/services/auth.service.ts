@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import {v4 as uuidv4} from 'uuid';
-import { AuthUserType } from '../types/authType';
-import { getUserUsername } from './userService';
-import { RefreshBodyType } from '../types/refreshBodyType';
+import { AuthUserType } from '../types/auth.types';
+import { getUserUsername } from './user.service';
+import { RefreshBodyType } from '../types/refresh-body.types';
 
 export async function authenticateUser(authenticationData: AuthUserType) {
     const { username, password } = authenticationData;

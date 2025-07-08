@@ -1,7 +1,7 @@
-import {store, getOrderById, destory, update, getOrderBySearch} from '../repositories/orderRepository';
-import { OrderSearchType } from '../types/orderSearchType';
-import { OrderType } from '../types/orderType';
-import { fetchUserById } from './userService';
+import {store, getOrderById, destory, update, getOrderBySearch} from '../repositories/order.repository';
+import { OrderSearchType } from '../types/order-search.types';
+import { OrderType } from '../types/order.types';
+import { fetchUserById } from './user.service';
 
 
 export async function createOrder(orderData: OrderType, requestingUserId: number) {

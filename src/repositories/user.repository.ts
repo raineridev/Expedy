@@ -1,5 +1,5 @@
-import { userModel } from '../entities/user';
-import { UserType } from '../types/userType';
+import { userModel } from '../entities/user.entity';
+import { UserType } from '../types/user.types';
 
 export async function store(userData: UserType) {
   try {

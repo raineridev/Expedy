@@ -1,5 +1,5 @@
-import { store, update, destroy, get} from "../controllers/storeController";
-import { auth } from "../middlewares/auth";
+import { store, update, destroy, get} from "../controllers/store.controller";
+import { auth } from "../middlewares/auth.middleware";
 import express from 'express';
 
 const app = express();

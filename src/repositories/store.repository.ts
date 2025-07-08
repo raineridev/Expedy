@@ -1,5 +1,5 @@
-import { storeModel } from '../entities/store';
-import { StoreType } from '../types/storeType';
+import { storeModel } from '../entities/store.entity';
+import { StoreType } from '../types/store.types';
 
 export async function store(storeData: StoreType) {
     return await storeModel.create(storeData);

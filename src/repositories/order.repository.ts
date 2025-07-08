@@ -1,6 +1,6 @@
-import { orderModel } from '../entities/order';
-import { OrderSearchType } from '../types/orderSearchType';
-import { OrderType } from '../types/orderType';
+import { orderModel } from '../entities/order.entity';
+import { OrderSearchType } from '../types/order-search.types';
+import { OrderType } from '../types/order.types';
 
 export async function store(orderData: OrderType) {
     return await orderModel.create(orderData);

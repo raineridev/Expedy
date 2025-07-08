@@ -1,5 +1,5 @@
 import express from 'express';
-import { store, updatePassword } from '../controllers/userController';
+import { store, updatePassword } from '../controllers/user.controller';
 
 const app = express();
 

@@ -1,8 +1,8 @@
-import { UserType } from '../types/userType';
-import { userStoreSchema } from './validate/userStoreValidate';
-import { userUpdateSchema } from './validate/userUpdateValidate';
+import { UserType } from '../types/user.types';
+import { userStoreSchema } from './validators/user-store.validator';
+import { userUpdateSchema } from './validators/user-update.validator';
 import { NextFunction, Request, Response } from "express";
-import { createUser, updatePassword as updatePasswordUser} from '../services/userService';
+import { createUser, updatePassword as updatePasswordUser} from '../services/user.service';
 
 
 export async function store(req: Request, res: Response) {

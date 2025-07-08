@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { OrderType } from '../types/orderType'; 
-import { OrderSearchType } from '../types/orderSearchType';
-import {  createOrder, getOrder, deleteOrder, updateOrder, searchOrder } from '../services/orderService';
-import { setWorkbook, setWorksheet, setColumns, createSheet, setStyleColumns } from '../services/reportService';
-import { sheetToUpperCase } from "../../utils/ExcelUtils";
+import { OrderType } from '../types/order.types'; 
+import { OrderSearchType } from '../types/order-search.types';
+import {  createOrder, getOrder, deleteOrder, updateOrder, searchOrder } from '../services/order.service';
+import { setWorkbook, setWorksheet, setColumns, createSheet, setStyleColumns } from '../services/report.service';
+import { sheetToUpperCase } from "../../utils/excel.util";
 
 export async function store(req: Request, res: Response) {
     const orderData: OrderType = req.body;

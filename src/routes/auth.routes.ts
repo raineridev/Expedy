@@ -1,4 +1,4 @@
-import { create } from "../controllers/authController";
+import { create } from "../controllers/auth.controller";
 import { Router } from "express";
 
 const app = Router();

@@ -1,6 +1,6 @@
-import {store , getStoreById, deleteById, update} from '../repositories/storeRepository';
-import { StoreType } from '../types/storeType';
-import { updateUser } from './userService';
+import {store , getStoreById, deleteById, update} from '../repositories/store.repository';
+import { StoreType } from '../types/store.types';
+import { updateUser } from './user.service';
 
 export async function createStore(storeData: StoreType, ownerId: number) {
     const createdStoreData = await store(storeData);

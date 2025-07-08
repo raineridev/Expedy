@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import authRouter from './auth';
-import { auth } from "../middlewares/auth";
-import userRouter from './users';
-import orderRouter from './order';
-import storeRouter from './store';
+import authRouter from './auth.routes';
+import { auth } from "../middlewares/auth.middleware";
+import userRouter from './user.routes';
+import orderRouter from './order.routes';
+import storeRouter from './store.routes';
 
 const router = Router();
 

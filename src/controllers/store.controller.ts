@@ -1,4 +1,4 @@
-import { createStore, getStore, deleteStore, updateStore } from '../services/storeService';
+import { createStore, getStore, deleteStore, updateStore } from '../services/store.service';
 import { Request, Response } from 'express';
 
 export async function store(req: Request, res: Response) {

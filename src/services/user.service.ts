@@ -1,6 +1,6 @@
-import { PasswordType } from "../controllers/validate/userUpdateValidate";
-import { store, updatePassword as updatePasswordUser, getUserByUsername, getUserById, updateUser as updateUserRepository} from "../repositories/userRepository";
-import { UserType } from "../types/userType";
+import { PasswordType } from "../controllers/validators/user-update.validator";
+import { store, updatePassword as updatePasswordUser, getUserByUsername, getUserById, updateUser as updateUserRepository} from "../repositories/user.repository";
+import { UserType } from "../types/user.types";
 
 
 export async function createUser(userData: UserType) {

@@ -1,4 +1,4 @@
-import { UserType } from "../types/userType";
+import { UserType } from "../types/user.types";
 import { Schema } from 'mongoose';
 import connection from '../db';
 

@@ -1,6 +1,6 @@
-import { store, get, destroy, update, search} from "../controllers/orderController";
+import { store, get, destroy, update, search} from "../controllers/order.controller";
 import { Router } from "express";
-import { auth } from "../middlewares/auth";
+import { auth } from "../middlewares/auth.middleware";
 const app = Router();
 
 
