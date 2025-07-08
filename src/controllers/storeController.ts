@@ -3,9 +3,10 @@ import { Request, Response } from 'express';
 
 export async function store(req: Request, res: Response) {
     try {
-        const data = req.body;
-        const store = await createStore(data, parseInt(req.headers['x-user-id'] as string));
-        res.status(201).json(store);
+        const storeData = req.body;
+        const userId = parseInt(req.headers['x-user-id'] as string);
+        const createdStore = await createStore(storeData, userId);
+        res.status(201).json(createdStore);
     } catch (error) {
         res.status(500).json({ error: 'Error creating store' });
     }
@@ -13,9 +14,9 @@ export async function store(req: Request, res: Response) {
 
 export async function get(req: Request, res: Response) {
     try {
-        const id = parseInt(req.params.id);
-        const store = await getStore(id);
-        res.status(200).json(store);
+        const storeId = parseInt(req.params.id);
+        const storeDetails = await getStore(storeId);
+        res.status(200).json(storeDetails);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching store' });
     }
@@ -23,8 +24,8 @@ export async function get(req: Request, res: Response) {
 
 export async function destroy(req: Request, res: Response) {
     try {
-        const id = parseInt(req.params.id);
-        const store = await deleteStore(id);
+        const storeId = parseInt(req.params.id);
+        const deletedStore = await deleteStore(storeId);
         res.status(200).json();
     } catch (error) {
         res.status(500).json({ error: 'Error deleting store' });
@@ -33,10 +34,10 @@ export async function destroy(req: Request, res: Response) {
 
 export async function update(req: Request, res: Response) {
     try {
-        const id = parseInt(req.params.id);
-        const data = req.body;
-        const store = await updateStore(id, data);
-        res.status(200).json(store);
+        const storeId = parseInt(req.params.id);
+        const storeUpdateData = req.body;
+        const updatedStore = await updateStore(storeId, storeUpdateData);
+        res.status(200).json(updatedStore);
     } catch (error) {
         res.status(500).json({ error: 'Error updating store' });
     }

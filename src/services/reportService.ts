@@ -3,48 +3,46 @@ import { setDateFormatToData } from "../../utils/DateFormat";
 const ExcelJS = require('exceljs');
 const path = require('path');
 
-export function setWorkbook(creator: string, lastModifiedBy: string, ) {
-    const workbook = new ExcelJS.Workbook();
-    workbook.creator = creator;
-    workbook.lastModifiedBy = lastModifiedBy;
-    workbook.created = new Date();
+export function setWorkbook(creatorName: string, lastModifiedByName: string) {
+    const excelWorkbook = new ExcelJS.Workbook();
+    excelWorkbook.creator = creatorName;
+    excelWorkbook.lastModifiedBy = lastModifiedByName;
+    excelWorkbook.created = new Date();
 
-    return workbook;
+    return excelWorkbook;
 }
 
-export function setWorksheet(workbook: any, name: string, worksheetData: Array<object>) {
-    const worksheet = workbook.addWorksheet(name);
-    const columns = worksheetData;
-    worksheet.columns = columns;
+export function setWorksheet(excelWorkbook: any, worksheetName: string, columnDefinitions: Array<object>) {
+    const newWorksheet = excelWorkbook.addWorksheet(worksheetName);
+    const worksheetColumns = columnDefinitions;
+    newWorksheet.columns = worksheetColumns;
 
-    return worksheet;
+    return newWorksheet;
 }
     
-
-export function setColumns(worksheet: any, data: Array<object>) {
-    data.forEach((dataRow : Object, i) => {
-        setDateFormatToData(dataRow, 'DD/MM/YYYY - HH:mm', 'data_venda');
-        worksheet.addRow(dataRow);
+export function setColumns(targetWorksheet: any, rowsData: Array<object>) {
+    rowsData.forEach((rowDataObject: Object, rowIndex: number) => {
+        setDateFormatToData(rowDataObject, 'DD/MM/YYYY - HH:mm', 'data_venda');
+        targetWorksheet.addRow(rowDataObject);
     });
 }
 
-export function setStyleColumns(worksheet: any) {
-    worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
-    worksheet.getRow(1).font = { bold: true};
-    worksheet.getRow(1).views = [{ state: 'frozen', ySplit: 1 }];
-    for (let i = 2; i <= worksheet.columnCount; i++) {
-        if((i % 2) === 0) {
-         const col = worksheet.getRow(i);
-        col.width = 20;
-        col.style = { alignment: { horizontal: 'center' } };
-        col.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFDDDDDD' } };   
+export function setStyleColumns(targetWorksheet: any) {
+    targetWorksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
+    targetWorksheet.getRow(1).font = { bold: true};
+    targetWorksheet.getRow(1).views = [{ state: 'frozen', ySplit: 1 }];
+    for (let columnIndex = 2; columnIndex <= targetWorksheet.columnCount; columnIndex++) {
+        if((columnIndex % 2) === 0) {
+         const currentColumn = targetWorksheet.getRow(columnIndex);
+        currentColumn.width = 20;
+        currentColumn.style = { alignment: { horizontal: 'center' } };
+        currentColumn.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFDDDDDD' } };   
         }
     }
 }
 
-
-export async function createSheet(workbook: any) {
-    const filePath = path.resolve('xlsPath', `${Date.now()}-test.xls`)
-    await workbook.xlsx.writeFile(filePath);
-    return filePath
+export async function createSheet(excelWorkbook: any) {
+    const outputFilePath = path.resolve('xlsPath', `${Date.now()}-test.xls`)
+    await excelWorkbook.xlsx.writeFile(outputFilePath);
+    return outputFilePath;
 }

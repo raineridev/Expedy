@@ -1,31 +1,30 @@
 import { storeModel } from '../entities/store';
 import { StoreType } from '../types/storeType';
 
-export async function store(data: StoreType) {
-    return await storeModel.create(data);
+export async function store(storeData: StoreType) {
+    return await storeModel.create(storeData);
 }
 
-export async function getStoreById(id: number)
- {
-    const store = await storeModel.findOne({id: id});
-    if (!store) {
+export async function getStoreById(storeId: number) {
+    const foundStore = await storeModel.findOne({id: storeId});
+    if (!foundStore) {
         throw new Error('Store not found');
     }
-    return store;
+    return foundStore;
 }
 
-export async function deleteById(id: number) {
-    const store = await storeModel.findOneAndDelete({id: id});
-    if (!store) {
+export async function deleteById(storeId: number) {
+    const deletedStore = await storeModel.findOneAndDelete({id: storeId});
+    if (!deletedStore) {
         throw new Error('Store not found');
     }
-    return store;
+    return deletedStore;
 }
 
-export async function update(id: number, data: StoreType) {
-    const store = await storeModel.findOneAndUpdate({id: id}, data);
-    if (!store) {
+export async function update(storeId: number, storeUpdateData: StoreType) {
+    const updatedStore = await storeModel.findOneAndUpdate({id: storeId}, storeUpdateData);
+    if (!updatedStore) {
         throw new Error('Store not found');
     }
-    return store;
+    return updatedStore;
 }

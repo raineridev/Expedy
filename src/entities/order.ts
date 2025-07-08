@@ -120,8 +120,8 @@ const orderSchema = new Schema({
 
 orderSchema.pre('save', async function(next) {
   if (this.isNew) {
-    const lastUser = await orderModel.findOne().sort({ id: -1 });
-    this.id = lastUser ? lastUser.id + 1 : 1;
+    const lastCreatedOrder = await orderModel.findOne().sort({ id: -1 });
+    this.id = lastCreatedOrder ? lastCreatedOrder.id + 1 : 1;
   }
   next();
 });

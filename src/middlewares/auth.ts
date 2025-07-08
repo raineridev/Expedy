@@ -3,14 +3,14 @@ import { Request, Response, NextFunction } from "express";
 import { RefreshBodyType } from '../types/refreshBodyType';
 import { UserType } from '../types/userType';
 
-export function auth(req : Request, res : Response, next: NextFunction) {
-    const accessToken  = req.headers['authorization'];
-    if(!accessToken) {
+export function auth(req: Request, res: Response, next: NextFunction) {
+    const authorizationHeader = req.headers['authorization'];
+    if(!authorizationHeader) {
         res.status(401).json({ error: 'Unauthorized' });
         throw new Error('Unauthorized');
     } 
     try {
-        const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET as string) as UserType; 
+        const decodedToken = jwt.verify(authorizationHeader, process.env.JWT_SECRET as string) as UserType; 
         if ((decodedToken as any as RefreshBodyType).type === 'refresh') {
             res.status(401).json({ error: 'Unauthorized' });
         }

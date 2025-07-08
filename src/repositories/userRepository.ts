@@ -1,57 +1,56 @@
 import { userModel } from '../entities/user';
 import { UserType } from '../types/userType';
 
-export async function store (data: UserType) {
+export async function store(userData: UserType) {
   try {
-    return userModel.create(data);
+    return userModel.create(userData);
   } catch (error) {
     console.error('Error creating user:', error);
     throw new Error('Failed to create user: ' + error);
   }
 }
 
-export async function updatePassword (id: number, password: string) {
+export async function updatePassword(userId: number, newPassword: string) {
   try {
-    const user = await userModel.findOneAndUpdate(
-      { id },
-      { password },
+    const updatedUser = await userModel.findOneAndUpdate(
+      { id: userId },
+      { password: newPassword },
       { new: true }
     );
-    if (!user) {
+    if (!updatedUser) {
       throw new Error('User not found');
     }
-    return user;
+    return updatedUser;
   } catch (error) {
     console.error('Error updating password:', error);
     throw new Error('Failed to update password: ' + error);
   }
 }
 
-export async function getUserByUsername (username: string) {
+export async function getUserByUsername(requestedUsername: string) {
   try {
-    const user = await userModel.findOne({ username });
-    if (!user) {
+    const foundUser = await userModel.findOne({ username: requestedUsername });
+    if (!foundUser) {
       throw new Error('User not found');
     }
-    return user;
+    return foundUser;
   } catch (error) {   
     throw new Error('Failed to fetch user: ' + error);
   }
 }
 
-export async function getUserById(id: number)
- {
-    const store = await userModel.findOne({id: id});
-    if (!store) {
+export async function getUserById(userId: number) {
+    const foundUser = await userModel.findOne({id: userId});
+    if (!foundUser) {
         throw new Error('User not found');
     }
-    return store;
+    return foundUser;
 }
 
-export async function updateUser(id: number, data: Object) {
-    const user = await userModel.findOneAndUpdate({id: id}, data, { new: true }); 
-    if (!user) {
+export async function updateUser(userId: number, userUpdateData: Object) {
+    const updatedUser = await userModel.findOneAndUpdate({id: userId}, userUpdateData, { new: true }); 
+    if (!updatedUser) {
         throw new Error('User not found');
     }
-    return user;
+    return updatedUser;
 }

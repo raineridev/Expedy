@@ -20,8 +20,8 @@ const storeSchema = new Schema({
 
 storeSchema.pre('save', async function(next) {
   if (this.isNew) {
-    const lastUser = await storeModel.findOne().sort({ id: -1 });
-    this.id = lastUser ? lastUser.id + 1 : 1;
+    const lastCreatedStore = await storeModel.findOne().sort({ id: -1 });
+    this.id = lastCreatedStore ? lastCreatedStore.id + 1 : 1;
   }
   next();
 });

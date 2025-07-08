@@ -24,8 +24,8 @@ const userSchema = new Schema<UserType>({
 
 userSchema.pre('save', async function(next) {
   if (this.isNew) {
-    const lastUser = await userModel.findOne().sort({ id: -1 });
-    this.id = lastUser ? lastUser.id + 1 : 1;
+    const lastCreatedUser = await userModel.findOne().sort({ id: -1 });
+    this.id = lastCreatedUser ? lastCreatedUser.id + 1 : 1;
   }
   next();
 });

@@ -2,21 +2,21 @@ import {store , getStoreById, deleteById, update} from '../repositories/storeRep
 import { StoreType } from '../types/storeType';
 import { updateUser } from './userService';
 
-export async function createStore(data: StoreType, userId: number) {
-    const storeData = await store(data);
-    const userData =  await updateUser(userId, { store: storeData.id });
+export async function createStore(storeData: StoreType, ownerId: number) {
+    const createdStoreData = await store(storeData);
+    const updatedUserData = await updateUser(ownerId, { store: createdStoreData.id });
     
-    return storeData;
+    return createdStoreData;
 }
 
-export async function getStore(id: number) {
-    return await getStoreById(id);
+export async function getStore(storeId: number) {
+    return await getStoreById(storeId);
 }
 
-export async function deleteStore(id: number) {
-    return await deleteById(id);
+export async function deleteStore(storeId: number) {
+    return await deleteById(storeId);
 }
 
-export async function updateStore(id: number, data: StoreType) {
-    return await update(id, data);
+export async function updateStore(storeId: number, storeUpdateData: StoreType) {
+    return await update(storeId, storeUpdateData);
 }

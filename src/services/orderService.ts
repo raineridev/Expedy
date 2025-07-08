@@ -4,27 +4,28 @@ import { OrderType } from '../types/orderType';
 import { fetchUserById } from './userService';
 
 
-export async function createOrder(data: OrderType, userId: number) {
-    console.log('Creating order with data:', data);
-    const userData = await fetchUserById(userId); 
-    if(userData.store === undefined) {
+export async function createOrder(orderData: OrderType, requestingUserId: number) {
+    console.log('Creating order with data:', orderData);
+    const userDetails = await fetchUserById(requestingUserId); 
+    if(userDetails.store === undefined) {
         throw new Error('User does not have a store associated');
     }
-    data.store = userData.store;
-    return await store(data);
-}
-export async function getOrder(id: number) {
-    return await getOrderById(id);
+    orderData.store = userDetails.store;
+    return await store(orderData);
 }
 
-export async function deleteOrder(id: number) {
-    return await destory(id);
+export async function getOrder(orderId: number) {
+    return await getOrderById(orderId);
 }
 
-export async function updateOrder(id: number, data: OrderType) {
-    return await update(id, data);
+export async function deleteOrder(orderId: number) {
+    return await destory(orderId);
 }
 
-export async function searchOrder(query: OrderSearchType) {
-    return await getOrderBySearch(query);
+export async function updateOrder(orderId: number, orderUpdateData: OrderType) {
+    return await update(orderId, orderUpdateData);
+}
+
+export async function searchOrder(searchQuery: OrderSearchType) {
+    return await getOrderBySearch(searchQuery);
 }

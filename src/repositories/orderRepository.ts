@@ -2,61 +2,62 @@ import { orderModel } from '../entities/order';
 import { OrderSearchType } from '../types/orderSearchType';
 import { OrderType } from '../types/orderType';
 
-export async function store(data: OrderType) {
-    return await orderModel.create(data);
+export async function store(orderData: OrderType) {
+    return await orderModel.create(orderData);
 }
 
-export async function getOrderById(id: number) {
-    const order = await orderModel.findOne({ id: id });
-    if (!order) {
+export async function getOrderById(orderId: number) {
+    const foundOrder = await orderModel.findOne({ id: orderId });
+    if (!foundOrder) {
         throw new Error('Order not found');
     }
-    return order;
+    return foundOrder;
 }
 
-export async function destory(id: number) {
-    const order = await orderModel.findOneAndDelete({ id: id });
-    if (!order) {
+export async function destory(orderId: number) {
+    const deletedOrder = await orderModel.findOneAndDelete({ id: orderId });
+    if (!deletedOrder) {
         throw new Error('Order not found');
     }
-    return order;
-    
+    return deletedOrder;
 }
 
-export async function update(id: number, data: OrderType) {
-    const order = await orderModel.findOneAndUpdate({ id: id }, data,  { new: true });
-    if (!order) {
+export async function update(orderId: number, orderUpdateData: OrderType) {
+    const updatedOrder = await orderModel.findOneAndUpdate({ id: orderId }, orderUpdateData, { new: true });
+    if (!updatedOrder) {
         throw new Error('Order not found');
     }
-    return order;
+    return updatedOrder;
 } 
 
-export async function getOrderBySearch(query: OrderSearchType) {
-  const filters: Record<string, any> = {};
-  const orderFilters: Record<string, any> = {
+export async function getOrderBySearch(searchQuery: OrderSearchType) {
+  const queryFilters: Record<string, any> = {};
+  const availableOrderFilters: Record<string, any> = {
     period: { tag: 'dateOfSale', type: Date },
     status: { tag: 'status', type: String },
     pointSale: { tag: 'pointSale', type: String },
   };
-  Object.keys(query).forEach((key) => {
-    if (key == 'startPeriod') {
-        filters.dateOfSale = {}
-        filters.dateOfSale.$gte = new Date(query[key]);
+  
+  Object.keys(searchQuery).forEach((filterKey) => {
+    if (filterKey == 'startPeriod') {
+        queryFilters.dateOfSale = {}
+        queryFilters.dateOfSale.$gte = new Date(searchQuery[filterKey]);
     } 
-    if (key == 'endPeriod') {
-        filters.dateOfSale.$lte = new Date(query[key]);
+    if (filterKey == 'endPeriod') {
+        queryFilters.dateOfSale.$lte = new Date(searchQuery[filterKey]);
     } 
-    if (key === 'status') {
-        const { tag } = orderFilters[key];
-        filters[tag] = query[key];
+    if (filterKey === 'status') {
+        const { tag } = availableOrderFilters[filterKey];
+        queryFilters[tag] = searchQuery[filterKey];
     }
-    if (key == 'pointSale') {
-        const { tag} = orderFilters[key];
-        filters[tag] = query[key];
+    if (filterKey == 'pointSale') {
+        const { tag } = availableOrderFilters[filterKey];
+        queryFilters[tag] = searchQuery[filterKey];
     }
   });
-    if(Object.keys(filters).length == 0) { 
+  
+    if(Object.keys(queryFilters).length == 0) { 
         return await orderModel.find({});
     }
-    return await orderModel.find(filters);
+    return await orderModel.find(queryFilters);
 }

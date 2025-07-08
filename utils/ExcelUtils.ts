@@ -1,13 +1,13 @@
-export function sheetToLowerCase(data: any) {
-const upperCasedData = data.map((entry : any) => {
+export function sheetToUpperCase(inputData: any) {
+const uppercasedData = inputData.map((dataEntry: any) => {
   return Object.fromEntries(
-    Object.entries(entry).map(([key, value]) => {
-      if (typeof value === 'string') {
-        return [key, value.toUpperCase()];
+    Object.entries(dataEntry).map(([propertyKey, propertyValue]) => {
+      if (typeof propertyValue === 'string') {
+        return [propertyKey, propertyValue.toUpperCase()];
       }
-      return [key, value];
+      return [propertyKey, propertyValue];
     })
   );
 });
-return upperCasedData;
+return uppercasedData;
 }
