@@ -126,4 +126,4 @@ orderSchema.pre('save', async function(next) {
   next();
 });
 
-export const orderModel = connection.model('Order', orderSchema);
+export const orderModel = connection.model('orders', orderSchema);

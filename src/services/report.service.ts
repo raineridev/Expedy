@@ -19,11 +19,11 @@ export function setWorksheet(excelWorkbook: any, worksheetName: string, columnDe
 
     return newWorksheet;
 }
-    
+
 export function setColumns(targetWorksheet: any, rowsData: Array<object>) {
-    rowsData.forEach((rowDataObject: Object, rowIndex: number) => {
-        setDateFormatToData(rowDataObject, 'DD/MM/YYYY - HH:mm', 'data_venda');
-        targetWorksheet.addRow(rowDataObject);
+    rowsData.forEach((rowDataObject: Object) => {
+        const rowDataWithNewDateObject = setDateFormatToData(rowDataObject, 'DD/MM/YYYY - HH:mm', 'date');
+        targetWorksheet.addRow(rowDataWithNewDateObject);
     });
 }
 
@@ -31,7 +31,7 @@ export function setStyleColumns(targetWorksheet: any) {
     targetWorksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
     targetWorksheet.getRow(1).font = { bold: true};
     targetWorksheet.getRow(1).views = [{ state: 'frozen', ySplit: 1 }];
-    for (let columnIndex = 2; columnIndex <= targetWorksheet.columnCount; columnIndex++) {
+    for (let columnIndex = 2; columnIndex <= targetWorksheet.rowCount; columnIndex++) {
         if((columnIndex % 2) === 0) {
          const currentColumn = targetWorksheet.getRow(columnIndex);
         currentColumn.width = 20;

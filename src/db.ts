@@ -2,7 +2,6 @@ import mongoose, { Connection } from "mongoose";
 
 let connection: Connection;
 try {
-  console.log(`${process.env.MONGODB_LINK}`);
   connection = mongoose.createConnection(`${process.env.MONGODB_LINK}`);
   console.log('✅ MongoDB connected');
 } catch (err) {
