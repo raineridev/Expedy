@@ -1,4 +1,6 @@
 import { setDateFormatToData } from "../../utils/date-format.util";
+import { getOrderReportData } from "../repositories/report.repository";
+import { OrderReportFilters, ExcelFooter } from "../types/report.types";
 
 const ExcelJS = require('exceljs');
 const path = require('path');
@@ -45,4 +47,78 @@ export async function createSheet(excelWorkbook: any) {
     const outputFilePath = path.resolve('xlsPath', `${Date.now()}-test.xls`)
     await excelWorkbook.xlsx.writeFile(outputFilePath);
     return outputFilePath;
+}
+
+export async function generateOrderReport(filters: OrderReportFilters) {
+    try {
+        const reportResult = await getOrderReportData(filters);
+        
+        await generateExcelReport(reportResult);
+        
+        return reportResult;
+    } catch (error) {
+        console.error('Error in generateOrderReport service:', error);
+        throw new Error(`Failed to generate order report: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+}
+
+export async function generateExcelReport(reportData: any) {
+    const excelWorkbook = setWorkbook('Expedy System', 'Report Generator');
+    
+    const reportColumnDefinitions = [
+        { header: 'Integração', key: 'integracao', width: 20 },
+        { 
+            header: 'Valor do frete', 
+            key: 'shipment_value', 
+            width: 20, 
+            style: { alignment: { horizontal: 'center' } }, 
+            fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFDDDDDD' } } 
+        },
+        { 
+            header: 'Valor do pedido', 
+            key: 'total', 
+            width: 20, 
+            style: { alignment: { horizontal: 'center' } }, 
+            fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFDDDDDD' } } 
+        },
+        { header: 'Data da venda', key: 'date', width: 25 },
+        { header: 'Status da Hub', key: 'status_hub', width: 15 },
+        { header: 'Nome do produto', key: 'product', width: 30 },
+    ];
+
+    const reportWorksheet = setWorksheet(excelWorkbook, 'Order Report', reportColumnDefinitions);
+    
+    const orders = reportData.aggregateResult?.[0]?.orders || [];
+    const statistics = reportData.aggregateResult?.[0]?.statistics || {};
+    const footerData : ExcelFooter = {
+        integracao: {value: 'TOTAL: '},
+        shipment_value:  {value: statistics.totalShipmentValue},
+        total: {value: statistics.totalOrderValue},
+        date: { value: `${Number(statistics.totalProfit).toFixed(2)} lucro`},
+        status_hub: {value: `${statistics.totalDocuments} Registros`},
+    };
+    setColumns(reportWorksheet, orders);
+    createFooter(reportWorksheet, footerData);
+    setStyleColumns(reportWorksheet);
+    return await createSheet(excelWorkbook);
+}
+
+function getNext (char: string, step = 0) {
+  const startCode = 'A'.charCodeAt(0) 
+  const charCode = char.toUpperCase().charCodeAt(0) 
+
+
+  const newCode = startCode + ((charCode - startCode + step) % 26)
+  return String.fromCharCode(newCode)
+}
+
+export function createFooter(worksheet : any, dataFooter: ExcelFooter ) {
+    const rowCount = worksheet.rowCount;
+    Object.keys(dataFooter).forEach((item, key) => {
+        let data = dataFooter[item];
+        if(typeof data.value === 'number') {
+            data.value = Number(data.value).toFixed(2);
+        }
+        worksheet.getCell(getNext('A', key) + (rowCount + 5)).value = data.value;
+    });
 }
